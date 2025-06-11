@@ -1,16 +1,10 @@
-# bmi_new
+# BMI_Slider
 
-A new Flutter project.
+Assignment 5
 
-## Getting Started
+## Build an Interactive BMI Calculator
 
-This project is a starting point for a Flutter application.
+Created an interactive BMI (Body Mass Index) calculator that makes use of arithmetic operations and Flutter UI elements like Slider, Container, Text, etc.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![image](https://github.com/user-attachments/assets/e7b9c631-47ae-4199-baad-d1fc36c76b56)
