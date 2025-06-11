@@ -9,6 +9,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   static var textStyle = TextStyle(
     color: Colors.purple,
     fontSize: 28,
@@ -23,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   );
   var heightSlider = 90;
   var weightSlider = 20;
+  var bmiText = 'Normal';
+  var bmiEmoji = '💪';
 
   double calculateBMI() {
     var heightInMtr = heightSlider / 100;
@@ -30,17 +38,36 @@ class _HomeScreenState extends State<HomeScreen> {
     return result.toPrecision(2);
   }
 
-  String calculateStatus() {
+  void calculateStatus() {
     var result = calculateBMI();
     if (result < 18.5) {
-      return 'Underweight';
-    } else if (result >= 18.5 && result < 24.9) {
-      return 'Normal';
+      setState(() {
+        bmiText = 'Underweight';
+        bmiEmoji = '🦴';
+      });
+    } else if (result >= 18.5 && result < 25) {
+      setState(() {
+        bmiText = 'Normal';
+        bmiEmoji = '💪';
+      });
     } else if (result >= 25 && result < 29.9) {
-      return 'Overweight';
+      setState(() {
+        bmiText = 'Overweight';
+        bmiEmoji = '😅 ';
+      });
     } else {
-      return 'Obese';
+      setState(() {
+        bmiText = 'Obese';
+        bmiEmoji = '🚨';
+      });
     }
+  }
+
+  void resetUI() {
+    heightSlider = 90;
+    weightSlider = 20;
+    calculateStatus();
+    setState(() {});
   }
 
   @override
@@ -96,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       value: heightSlider.toDouble(),
                       onChanged: (double value) {
                         heightSlider = value.toInt();
+                        calculateStatus();
                         setState(() {});
                       },
                       min: 90,
@@ -141,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       value: weightSlider.toDouble(),
                       onChanged: (double value) {
                         weightSlider = value.toInt();
+                        calculateStatus();
                         setState(() {});
                       },
                       min: 20,
@@ -171,15 +200,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text('RESULT', style: textStyle),
+                      child: Text(
+                        'RESULT',
+                        style: textStyle.copyWith(fontSize: 50),
+                      ),
                     ),
                     Text('${calculateBMI()}', style: numStyle),
-                    Text(calculateStatus(), style: textStyle),
+                    Text(bmiText, style: textStyle.copyWith(fontSize: 40)),
+                    Text(bmiEmoji, style: textStyle.copyWith(fontSize: 100)),
                   ],
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  resetUI();
+                },
+                child: Text('Reset', style: textStyle),
               ),
             ),
           ],
